@@ -32,6 +32,7 @@ int crt(int residue[], int moduli[], int num){
     for(int i=0; i<num; i++){
         int n = N/moduli[i];
         int y = inverse(n, moduli[i]);
+        if(y == -1) return -1;
         x += residue[i]*n*y;
     }
     return x % N;
@@ -66,5 +67,6 @@ int main(){
         printf("x ≡ %d (mod %d)\n", a[i], m[i]);
     }
     printf("\n");
-    printf("The smallest positive integer x that satisfies the above system of simultaneous congruences is %d.\n", x);
+    if(x == -1) printf("No solution exists since the pairwise moduli are not coprime.\n");
+    else printf("The smallest positive integer x that satisfies the above system of simultaneous congruences is %d.\n", x);
 }
